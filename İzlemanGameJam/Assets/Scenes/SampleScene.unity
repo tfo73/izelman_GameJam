@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 1925839618}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,6 +353,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 596778236170437623, guid: bac845cc58f5b9e4da0ec24bc64f3330, type: 3}
+      propertyPath: m_Mass
+      value: 1.0672977
+      objectReference: {fileID: 0}
+    - target: {fileID: 596778236170437623, guid: bac845cc58f5b9e4da0ec24bc64f3330, type: 3}
+      propertyPath: m_UseAutoMass
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 942350423855133078, guid: bac845cc58f5b9e4da0ec24bc64f3330, type: 3}
       propertyPath: m_Name
       value: Player
@@ -399,6 +407,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2309641481982451619, guid: bac845cc58f5b9e4da0ec24bc64f3330, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780971777148018657, guid: bac845cc58f5b9e4da0ec24bc64f3330, type: 3}
+      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
