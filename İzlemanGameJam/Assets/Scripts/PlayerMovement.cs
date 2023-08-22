@@ -50,11 +50,16 @@ public class PlayerMovement : MonoBehaviour
     {
         canJump = true;
         dashedOnce = false;
+        anim.ResetTrigger("isJumping");
+        Debug.Log("fuk");
+
+
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
         canJump = false;
+
     }
 
     public void MoveCharacter(float x, float y)
@@ -76,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        
+
 
         GetInput();
         HandleJump();
@@ -117,10 +122,12 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if(moveIntentionX == 0){
+        if (moveIntentionX == 0)
+        {
             anim.SetBool("isRunning", false);
         }
-        else{
+        else
+        {
             anim.SetBool("isRunning", true);
         }
 
@@ -163,31 +170,32 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator HandleDash()
     {
-        Debug.Log((2 * dashingPower * moveIntentionY).ToString());
         canDash = false;
         isDashing = true;
-        dashedOnce = true;
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
-        rb.velocity = new Vector2(moveIntentionX * dashingPower, !dashedOnce ? (2 * dashingPower * moveIntentionY) : 0);
+        rb.velocity = new Vector2(Mathf.RoundToInt(moveIntentionX) * dashingPower, (CheckGrounded() || !dashedOnce) ? jumpForce * Mathf.RoundToInt(moveIntentionY) : rb.velocity.y);
         yield return new WaitForSeconds(dasingTime);
         rb.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+        dashedOnce = true;
     }
 
     private void HandleJump()
     {
         if (attempJump && CheckGrounded())
         {
+            anim.SetTrigger("isJumping");
+
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
 
     private void HandleAttack()
     {
-        
+
     }
 
     private bool CheckGrounded()
