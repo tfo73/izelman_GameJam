@@ -32,10 +32,14 @@ public class PlayerMovement : MonoBehaviour
     private bool attempJump = false;
     private bool attempAttcak = false;
 
+    private Animator anim;
+
     //[SerializeField] private TrailRenderer tr;
 
     void Start()
     {
+        anim = GetComponent<Animator>();
+
         if (GetComponent<Rigidbody2D>())
         {
             rb = GetComponent<Rigidbody2D>();
@@ -47,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         canJump = true;
         dashedOnce = false;
     }
+
     private void OnCollisionExit2D(Collision2D other)
     {
         canJump = false;
@@ -71,14 +76,18 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        
+
         GetInput();
         HandleJump();
         HandleAttack();
         HandleDash();
+
         if (Input.GetKey(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(HandleDash());
         }
+
         /*    if (Input.GetKey(KeyCode.A))
             {
                 MoveCharacter(-1, 0);
@@ -107,6 +116,14 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
+
+        if(moveIntentionX == 0){
+            anim.SetBool("isRunning", false);
+        }
+        else{
+            anim.SetBool("isRunning", true);
+        }
+
         HandleRun();
     }
 
@@ -169,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
     private bool CheckGrounded()
     {
         //return Physics2D.Raycast(transform.position, -Vector2.up, groundedLeeway);
+
         return canJump;
     }
 }
