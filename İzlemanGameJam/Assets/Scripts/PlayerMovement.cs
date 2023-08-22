@@ -124,6 +124,13 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isRunning", true);
         }
 
+        /*if(moveIntentionY == 0){
+            anim.SetBool("isRunning", false);
+        }
+        else{
+            anim.SetBool("isRunning", true);
+        }*/
+
         HandleRun();
     }
 
@@ -180,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleAttack()
     {
-
+        
     }
 
     private bool CheckGrounded()
