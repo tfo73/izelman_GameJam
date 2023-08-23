@@ -50,10 +50,6 @@ public class PlayerMovement : MonoBehaviour
     {
         canJump = true;
         dashedOnce = false;
-        anim.ResetTrigger("isJumping");
-        Debug.Log("fuk");
-
-
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -81,8 +77,6 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-
-
         GetInput();
         HandleJump();
         HandleAttack();
@@ -92,6 +86,21 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(HandleDash());
         }
+
+        if (Input.GetKey(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(HandleDash());
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            anim.SetBool("isJumping", true);
+        }
+        else{
+            anim.SetBool("isJumping", false);
+        }
+
+        
 
         /*    if (Input.GetKey(KeyCode.A))
             {
@@ -187,8 +196,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (attempJump && CheckGrounded())
         {
-            anim.SetTrigger("isJumping");
-
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
