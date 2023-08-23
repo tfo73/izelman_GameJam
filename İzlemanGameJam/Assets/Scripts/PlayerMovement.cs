@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator anim;
 
-    //[SerializeField] private TrailRenderer tr;
+    [SerializeField] private TrailRenderer tr;
 
     void Start()
     {
@@ -184,7 +184,9 @@ public class PlayerMovement : MonoBehaviour
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(Mathf.RoundToInt(moveIntentionX) * dashingPower, (CheckGrounded() || !dashedOnce) ? jumpForce * Mathf.RoundToInt(moveIntentionY) : rb.velocity.y);
+        tr.emitting = true;
         yield return new WaitForSeconds(dasingTime);
+        tr.emitting = false;
         rb.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
