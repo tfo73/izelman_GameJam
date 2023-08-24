@@ -34,7 +34,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator anim;
 
-    [SerializeField] private TrailRenderer tr;
+    [Header("Particle")]
+    public ParticleSystem dust;
+    [SerializeField] private TrailRenderer trail;
 
     void Start()
     {
@@ -85,12 +87,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(HandleDash());
+            dust.Play();
         }
 
-        if (Input.GetKey(KeyCode.LeftShift) && canDash)
+        /*if (Input.GetKey(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(HandleDash());
-        }
+        }*/
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -133,11 +136,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (moveIntentionX == 0)
         {
+            
             anim.SetBool("isRunning", false);
+            
         }
         else
         {
+            
             anim.SetBool("isRunning", true);
+            
         }
 
         /*if(moveIntentionY == 0){
@@ -168,10 +175,12 @@ public class PlayerMovement : MonoBehaviour
         if (moveIntentionX > 0 && transform.rotation.y == 0)
         {
             transform.rotation = Quaternion.Euler(0, 180f, 0);
+            //dust.Play();
         }
         else if (moveIntentionX < 0 && transform.rotation.y != 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+            //dust.Play();
         }
 
         rb.velocity = new Vector2(moveIntentionX * speed, rb.velocity.y);
@@ -184,9 +193,9 @@ public class PlayerMovement : MonoBehaviour
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
         rb.velocity = new Vector2(Mathf.RoundToInt(moveIntentionX) * dashingPower, (CheckGrounded() || !dashedOnce) ? jumpForce * Mathf.RoundToInt(moveIntentionY) : rb.velocity.y);
-        tr.emitting = true;
+        trail.emitting = true;
         yield return new WaitForSeconds(dasingTime);
-        tr.emitting = false;
+        trail.emitting = false;
         rb.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
