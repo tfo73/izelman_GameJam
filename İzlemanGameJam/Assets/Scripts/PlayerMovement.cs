@@ -89,11 +89,9 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(HandleDash());
             dust.Play();
         }
-
-        /*if (Input.GetKey(KeyCode.LeftShift) && canDash)
-        {
-            StartCoroutine(HandleDash());
-        }*/
+        else{
+            dust.Stop();
+        }
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -135,16 +133,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (moveIntentionX == 0)
-        {
-            
+        {  
             anim.SetBool("isRunning", false);
             
         }
         else
         {
-            
             anim.SetBool("isRunning", true);
-            
         }
 
         /*if(moveIntentionY == 0){
